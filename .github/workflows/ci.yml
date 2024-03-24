@@ -1,0 +1,41 @@
+name: CI
+
+on: 
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches: 
+      - main
+
+# fake env variables to bypass env check
+env: 
+  NEXT_PUBLIC_APP_URL: "https://fake.com"
+  NEXT_PUBLIC_TMDB_TOKEN: "fake-token"
+  NEXT_PUBLIC_SITE_NAME: "fake-name"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.1
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Print Environment Variable
+        run: echo $MY_ENV_VAR

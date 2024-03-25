@@ -61,6 +61,7 @@ export type KeyWord = {
 export type KeyWordResponse = {
   id: number;
   keywords: KeyWord[];
+  results: KeyWord[];
 };
 
 export type Genre = {

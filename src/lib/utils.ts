@@ -5,6 +5,7 @@ import type { KeyWord, KeyWordResponse, Show } from '@/types';
 import { type AxiosResponse } from 'axios';
 import { type ClassValue, clsx } from 'clsx';
 import { type Metadata } from 'next';
+import { cache } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -118,57 +119,59 @@ export function handleDefaultSearchInp(): void {
   }
 }
 
-export async function handleMetadata(
-  slug: string,
-  page: string,
-  type: 'tv' | 'movie',
-): Promise<Metadata> {
-  const movieId: number = getIdFromSlug(slug);
-  let keywords: string[] = [];
-  let data: Show | null = null;
-  try {
-    const response: AxiosResponse<Show> =
-      'tv' === type
-        ? await MovieService.findTvSeries(movieId)
-        : await MovieService.findMovie(movieId);
-    data = response.data;
-    const keywordResponse: AxiosResponse<KeyWordResponse> =
-      await MovieService.getKeywords(movieId, type);
-    keywords = keywordResponse.data.keywords.map((item: KeyWord) => item.name);
-  } catch (error) {
-    console.log(error);
-  }
+export const handleMetadata = cache(
+  async (slug: string, page: string, type: 'tv' | 'movie') => {
+    const movieId: number = getIdFromSlug(slug);
+    let keywords: string[] = [];
+    let data: Show | null = null;
+    try {
+      const response: AxiosResponse<Show> =
+        'tv' === type
+          ? await MovieService.findTvSeries(movieId)
+          : await MovieService.findMovie(movieId);
+      data = response.data;
+      const keywordResponse: AxiosResponse<KeyWordResponse> =
+        await MovieService.getKeywords(movieId, type);
+      const res =
+        type === 'tv'
+          ? keywordResponse.data.results
+          : keywordResponse.data.keywords;
+      keywords = res.map((item: KeyWord) => item.name);
+    } catch (error) {
+      console.log(error);
+    }
 
-  return {
-    description: data?.overview,
-    title: getNameFromShow(data),
-    keywords: [
-      ...keywords,
-      slug.replace(`-${movieId}`, ''),
-      env.NEXT_PUBLIC_SITE_NAME,
-    ],
-    openGraph: {
-      type: 'website',
-      locale: 'en_US',
-      url: `${siteConfig.url}/${page}/${slug}`,
-      images: `https://image.tmdb.org/t/p/original/${
-        data?.backdrop_path ?? data?.poster_path ?? ''
-      }`,
+    return {
+      description: data?.overview,
       title: getNameFromShow(data),
-      description: data?.overview ?? '',
-      siteName: siteConfig.name,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: getNameFromShow(data),
-      description: data?.overview ?? '',
-      images: `https://image.tmdb.org/t/p/original/${
-        data?.backdrop_path ?? data?.poster_path ?? ''
-      }`,
-      creator: siteConfig.author,
-    },
-  };
-}
+      keywords: [
+        ...keywords,
+        slug.replace(`-${movieId}`, ''),
+        env.NEXT_PUBLIC_SITE_NAME,
+      ],
+      openGraph: {
+        type: 'website',
+        locale: 'en_US',
+        url: `${siteConfig.url}/${page}/${slug}`,
+        images: `https://image.tmdb.org/t/p/original/${
+          data?.backdrop_path ?? data?.poster_path ?? ''
+        }`,
+        title: getNameFromShow(data),
+        description: data?.overview ?? '',
+        siteName: siteConfig.name,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: getNameFromShow(data),
+        description: data?.overview ?? '',
+        images: `https://image.tmdb.org/t/p/original/${
+          data?.backdrop_path ?? data?.poster_path ?? ''
+        }`,
+        creator: siteConfig.author,
+      },
+    };
+  },
+);
 
 export async function handleModal(slug: string): Promise<Show | null> {
   if (!slug) return null;

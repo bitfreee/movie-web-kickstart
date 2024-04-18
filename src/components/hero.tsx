@@ -1,6 +1,5 @@
 'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MediaType, type Show } from '@/types';
 import { useSearchStore } from '@/stores/search';
 import { Button } from '@/components/ui/button';
@@ -13,16 +12,10 @@ import MovieService from '@/services/MovieService';
 import { type AxiosResponse } from 'axios';
 
 interface HeroProps {
-  shows: Show[];
+  randomShow: Show | null;
 }
 
-const Hero = ({ shows }: HeroProps) => {
-  const [randomShow, setRandomShow] = useState<Show | null>(null);
-  useEffect(() => {
-    const randomNumber = Math.floor(Math.random() * shows.length);
-    setRandomShow(shows[randomNumber] ?? null);
-  }, [shows]);
-
+const Hero = ({ randomShow }: HeroProps) => {
   React.useEffect(() => {
     window.addEventListener('popstate', handlePopstateEvent, false);
     return () => {

@@ -2,8 +2,9 @@ import Hero from '@/components/hero';
 import ShowsContainer from '@/components/shows-container';
 import { siteConfig } from '@/configs/site';
 import { RequestType, type ShowRequest } from '@/enums/request-type';
+import { getRandomShow } from '@/lib/utils';
 import MovieService from '@/services/MovieService';
-import { MediaType } from '@/types';
+import { MediaType, type Show } from '@/types';
 
 export const revalidate = 3600;
 
@@ -37,11 +38,12 @@ export default async function NewAndPopularPage() {
     },
   ];
   const allShows = await MovieService.getShows(requests);
+  const randomShow: Show | null = getRandomShow(allShows);
 
   return (
     <>
       <h1 className="hidden">{h1}</h1>
-      <Hero shows={allShows[0].shows} />
+      <Hero randomShow={randomShow} />
       <ShowsContainer shows={allShows} />
     </>
   );

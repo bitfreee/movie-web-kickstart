@@ -1,10 +1,9 @@
 import { siteConfig } from '@/configs/site';
 import { env } from '@/env.mjs';
 import MovieService from '@/services/MovieService';
-import type { KeyWord, KeyWordResponse, Show } from '@/types';
+import type { CategorizedShows, KeyWord, KeyWordResponse, Show } from '@/types';
 import { type AxiosResponse } from 'axios';
 import { type ClassValue, clsx } from 'clsx';
-import { type Metadata } from 'next';
 import { cache } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -178,4 +177,15 @@ export async function handleModal(slug: string): Promise<Show | null> {
   const movieId: number = getIdFromSlug(slug);
   if (!movieId) return null;
   return MovieService.findCurrentMovie(movieId, slug);
+}
+
+export function getRandomShow(allShows: CategorizedShows[]): Show | null {
+  const randomNumber = allShows?.length
+    ? Math.floor(Math.random() * (allShows[0].shows?.length || 0))
+    : 0;
+  const randomShow: Show | null =
+    allShows?.length && allShows[0].shows?.length
+      ? allShows[0].shows[randomNumber]
+      : null;
+  return randomShow;
 }

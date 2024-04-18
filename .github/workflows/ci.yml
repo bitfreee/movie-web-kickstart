@@ -4,9 +4,11 @@ on:
   push:
     branches: 
       - main
+      - dev
   pull_request:
     branches: 
       - main
+      - dev
 
 # fake env variables to bypass env check
 env: 

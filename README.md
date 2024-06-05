@@ -11,8 +11,8 @@ A launching point for building a movie streaming website.
 - **Recommendation Engine**: Get personalized movie recommendations based on your preferences and viewing history.
 - **Responsive Design**: Enjoy a seamless experience across devices with our responsive web design.
 
-## Deployment
-### Deploy with vercel
+## Deployments
+### Deploy with Vercel
 1. Click the button below to deploy the project on Vercel.
 
 - [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbitfreee%2Fmovie-web-kickstart&env=NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_TMDB_TOKEN,NEXT_PUBLIC_SITE_NAME) 
@@ -22,6 +22,10 @@ A launching point for building a movie streaming website.
 - `NEXT_PUBLIC_SITE_NAME`: The name of your website (e.g., `MovieWeb Kickstart`)
 
 3. Click "Deploy" and wait for the deployment to complete.
+
+### Deploy with Cloudflare Pages
+To deploy on [Cloudflare Pages](https://pages.cloudflare.com/) you can use the following instructions:
+[README](https://github.com/cloudflare/next-on-pages/tree/main/packages/next-on-pages)
 
 ## Local Development
 

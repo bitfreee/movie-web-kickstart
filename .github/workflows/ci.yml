@@ -15,6 +15,7 @@ env:
   NEXT_PUBLIC_APP_URL: "https://fake.com"
   NEXT_PUBLIC_TMDB_TOKEN: "fake-token"
   NEXT_PUBLIC_SITE_NAME: "fake-name"
+  NEXT_PUBLIC_IMAGE_DOMAIN: "fake-domain"
 
 jobs:
   build:

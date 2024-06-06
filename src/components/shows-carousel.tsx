@@ -8,6 +8,8 @@ import { cn, getNameFromShow, getSlug } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import { env } from '@/env.mjs';
 
 interface ShowsCarouselProps {
   title: string;
@@ -124,16 +126,17 @@ export const ShowCard = ({
       {/*   } */}
       {/*   media="(min-width: 780px)" */}
       {/* /> */}
-      <img
+      <Image
         src={
           show.poster_path ?? show.backdrop_path
-            ? `https://image.tmdb.org/t/p/w500/${
+            ? `https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/w500${
                 show.poster_path ?? show.backdrop_path
               }`
             : '/images/grey-thumbnail.jpg'
         }
         alt={show.title ?? show.name ?? 'poster'}
         className="h-full w-full cursor-pointer rounded-lg px-1 transition-all md:hover:scale-110"
+        fill
         style={{
           objectFit: 'cover',
         }}

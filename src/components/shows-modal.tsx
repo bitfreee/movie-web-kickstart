@@ -9,7 +9,6 @@ import {
   type VideoResult,
 } from '@/types';
 import Youtube from 'react-youtube';
-import Image from 'next/image';
 import { getMobileDetect, getYear } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -22,6 +21,8 @@ import {
 import Link from 'next/link';
 import MovieService from '@/services/MovieService';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import { env } from '@/env.mjs';
 
 type YouTubePlayer = {
   mute: () => void;
@@ -160,7 +161,7 @@ const ShowModal = () => {
             ref={imageRef}
             alt={modalStore?.show?.title ?? 'poster'}
             className="-z-40 z-[1] h-auto w-full object-cover"
-            src={`https://image.tmdb.org/t/p/original/${modalStore.show?.backdrop_path}`}
+            src={`https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/original${modalStore.show?.backdrop_path}`}
           />
           {trailer && (
             <Youtube

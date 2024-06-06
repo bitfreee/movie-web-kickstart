@@ -152,7 +152,7 @@ export const handleMetadata = cache(
         type: 'website',
         locale: 'en_US',
         url: `${siteConfig.url}/${page}/${slug}`,
-        images: `https://image.tmdb.org/t/p/original/${
+        images: `https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/original${
           data?.backdrop_path ?? data?.poster_path ?? ''
         }`,
         title: getNameFromShow(data),
@@ -163,7 +163,7 @@ export const handleMetadata = cache(
         card: 'summary_large_image',
         title: getNameFromShow(data),
         description: data?.overview ?? '',
-        images: `https://image.tmdb.org/t/p/original/${
+        images: `https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/original${
           data?.backdrop_path ?? data?.poster_path ?? ''
         }`,
         creator: siteConfig.author,

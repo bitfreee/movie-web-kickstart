@@ -1,15 +1,16 @@
 'use client';
-import React from 'react';
-import { MediaType, type Show } from '@/types';
-import { useSearchStore } from '@/stores/search';
-import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
-import Image from 'next/image';
-import { useModalStore } from '@/stores/modal';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { getIdFromSlug } from '@/lib/utils';
 import MovieService from '@/services/MovieService';
+import { useModalStore } from '@/stores/modal';
+import { useSearchStore } from '@/stores/search';
+import { MediaType, type Show } from '@/types';
 import { type AxiosResponse } from 'axios';
+import Link from 'next/link';
+import React from 'react';
+import Image from 'next/image';
+import { env } from '@/env.mjs';
 
 interface HeroProps {
   randomShow: Show | null;
@@ -62,7 +63,7 @@ const Hero = ({ randomShow }: HeroProps) => {
         <>
           <div className="absolute inset-0 z-0 h-[100vw] w-full sm:h-[56.25vw]">
             <Image
-              src={`https://image.tmdb.org/t/p/original/${
+              src={`https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/original${
                 randomShow?.backdrop_path ?? randomShow?.poster_path ?? ''
               }`}
               alt={randomShow?.title ?? 'poster'}

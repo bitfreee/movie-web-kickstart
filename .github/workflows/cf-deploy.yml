@@ -1,0 +1,43 @@
+name: Deploy To Cloudflare
+
+on: 
+  push:
+    branches: 
+      - main
+      - dev
+  pull_request:
+    branches: 
+      - main
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.1
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: set-up environment
+        run: echo "${{ secrets.DOT_ENV_PROD }}" > .env
+
+      - name: build
+        run: npx @cloudflare/next-on-pages
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          projectName: ${{secrets.CF_PROJECT_NAME}}
+          directory: .vercel/output/static
+

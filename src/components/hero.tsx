@@ -11,6 +11,7 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 import { env } from '@/env.mjs';
+import CustomImage from './custom-image';
 
 interface HeroProps {
   randomShow: Show | null;
@@ -62,8 +63,8 @@ const Hero = ({ randomShow }: HeroProps) => {
       {randomShow && (
         <>
           <div className="absolute inset-0 z-0 h-[100vw] w-full sm:h-[56.25vw]">
-            <Image
-              src={`https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/original${
+            <CustomImage
+              src={`https://image.tmdb.org/t/p/w1280${
                 randomShow?.backdrop_path ?? randomShow?.poster_path ?? ''
               }`}
               alt={randomShow?.title ?? 'poster'}

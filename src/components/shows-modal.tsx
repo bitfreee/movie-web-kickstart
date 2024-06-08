@@ -23,6 +23,7 @@ import MovieService from '@/services/MovieService';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { env } from '@/env.mjs';
+import CustomImage from './custom-image';
 
 type YouTubePlayer = {
   mute: () => void;
@@ -155,13 +156,13 @@ const ShowModal = () => {
       aria-label="Modal containing show's details">
       <DialogContent className="w-full overflow-hidden rounded-md bg-zinc-900 p-0 text-left align-middle shadow-xl dark:bg-zinc-900 sm:max-w-3xl lg:max-w-4xl">
         <div className="video-wrapper relative aspect-video">
-          <Image
+          <CustomImage
             fill
             priority
             ref={imageRef}
             alt={modalStore?.show?.title ?? 'poster'}
             className="-z-40 z-[1] h-auto w-full object-cover"
-            src={`https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/original${modalStore.show?.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w1280${modalStore.show?.backdrop_path}`}
           />
           {trailer && (
             <Youtube

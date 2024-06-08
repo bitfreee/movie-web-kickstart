@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { useSearchStore } from '@/stores/search';
 import Image from 'next/image';
+import CustomImage from './custom-image';
 
 interface ShowsSkeletonProps {
   count?: number;
@@ -45,7 +46,7 @@ const ShowsSkeleton = ({
                   {/*   media="(min-width: 780px)" */}
                   {/*   srcSet={'/images/grey-thumbnail.jpg'} */}
                   {/* /> */}
-                  <Image
+                  <CustomImage
                     alt={'poster'}
                     src={'/images/grey-thumbnail.jpg'}
                     className="h-full w-full cursor-pointer rounded-lg px-1 transition-all md:hover:scale-110"

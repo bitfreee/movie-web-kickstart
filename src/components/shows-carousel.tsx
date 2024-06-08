@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { env } from '@/env.mjs';
+import CustomImage from './custom-image';
 
 interface ShowsCarouselProps {
   title: string;
@@ -126,10 +127,10 @@ export const ShowCard = ({
       {/*   } */}
       {/*   media="(min-width: 780px)" */}
       {/* /> */}
-      <Image
+      <CustomImage
         src={
           show.poster_path ?? show.backdrop_path
-            ? `https://${env.NEXT_PUBLIC_IMAGE_DOMAIN}/t/p/w500${
+            ? `https://image.tmdb.org/t/p/w300${
                 show.poster_path ?? show.backdrop_path
               }`
             : '/images/grey-thumbnail.jpg'

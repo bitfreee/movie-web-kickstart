@@ -18,8 +18,10 @@ const config = {
     defaultLocale: 'en',
   },
   images: {
-    unoptimized: true,
-    domains: [env.NEXT_PUBLIC_IMAGE_DOMAIN],
+    unoptimized: !env.NEXT_PUBLIC_IMAGE_DOMAIN,
+    domains: [env.NEXT_PUBLIC_IMAGE_DOMAIN ?? 'image.tmdb.org'],
+    imageSizes: [48, 64, 96],
+    deviceSizes: [128, 256, 512, 1200],
   },
   typescript: {
     ignoreBuildErrors: true,

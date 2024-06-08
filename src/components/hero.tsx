@@ -9,8 +9,6 @@ import { MediaType, type Show } from '@/types';
 import { type AxiosResponse } from 'axios';
 import Link from 'next/link';
 import React from 'react';
-import Image from 'next/image';
-import { env } from '@/env.mjs';
 import CustomImage from './custom-image';
 
 interface HeroProps {
@@ -64,11 +62,12 @@ const Hero = ({ randomShow }: HeroProps) => {
         <>
           <div className="absolute inset-0 z-0 h-[100vw] w-full sm:h-[56.25vw]">
             <CustomImage
-              src={`https://image.tmdb.org/t/p/w1280${
+              src={`https://image.tmdb.org/t/p/original${
                 randomShow?.backdrop_path ?? randomShow?.poster_path ?? ''
               }`}
               alt={randomShow?.title ?? 'poster'}
               className="-z-40 h-auto w-full object-cover"
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
               fill
               priority
             />

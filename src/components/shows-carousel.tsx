@@ -1,15 +1,13 @@
 'use client';
 
-import * as React from 'react';
 import { useModalStore } from '@/stores/modal';
 import { MediaType, type Show } from '@/types';
+import * as React from 'react';
 
-import { cn, getNameFromShow, getSlug } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { cn, getNameFromShow, getSlug } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
-import { env } from '@/env.mjs';
 import CustomImage from './custom-image';
 
 interface ShowsCarouselProps {
@@ -93,13 +91,7 @@ const ShowsCarousel = ({ title, shows }: ShowsCarouselProps) => {
 
 export default ShowsCarousel;
 
-export const ShowCard = ({
-  show,
-  pathname,
-}: {
-  show: Show;
-  pathname: string;
-}) => {
+export const ShowCard = ({ show }: { show: Show; pathname: string }) => {
   const imageOnErrorHandler = (
     event: React.SyntheticEvent<HTMLImageElement, Event>,
   ) => {
@@ -130,7 +122,7 @@ export const ShowCard = ({
       <CustomImage
         src={
           show.poster_path ?? show.backdrop_path
-            ? `https://image.tmdb.org/t/p/w300${
+            ? `https://image.tmdb.org/t/p/w500${
                 show.poster_path ?? show.backdrop_path
               }`
             : '/images/grey-thumbnail.jpg'
@@ -138,6 +130,7 @@ export const ShowCard = ({
         alt={show.title ?? show.name ?? 'poster'}
         className="h-full w-full cursor-pointer rounded-lg px-1 transition-all md:hover:scale-110"
         fill
+        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
         style={{
           objectFit: 'cover',
         }}

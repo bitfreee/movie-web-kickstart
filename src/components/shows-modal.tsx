@@ -1,15 +1,5 @@
 'use client';
 
-import * as React from 'react';
-import { useModalStore } from '@/stores/modal';
-import {
-  MediaType,
-  type Genre,
-  type ShowWithGenreAndVideo,
-  type VideoResult,
-} from '@/types';
-import Youtube from 'react-youtube';
-import { getMobileDetect, getYear } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,11 +8,19 @@ import {
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
-import Link from 'next/link';
+import { getMobileDetect, getYear } from '@/lib/utils';
 import MovieService from '@/services/MovieService';
+import { useModalStore } from '@/stores/modal';
+import {
+  MediaType,
+  type Genre,
+  type ShowWithGenreAndVideo,
+  type VideoResult,
+} from '@/types';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
-import { env } from '@/env.mjs';
+import * as React from 'react';
+import Youtube from 'react-youtube';
 import CustomImage from './custom-image';
 
 type YouTubePlayer = {
@@ -59,7 +57,6 @@ const defaultOptions: Record<string, object> = {
 };
 
 const ShowModal = () => {
-  const pathname = usePathname();
   // stores
   const modalStore = useModalStore();
   const IS_MOBILE: boolean = isMobile();
@@ -162,7 +159,8 @@ const ShowModal = () => {
             ref={imageRef}
             alt={modalStore?.show?.title ?? 'poster'}
             className="-z-40 z-[1] h-auto w-full object-cover"
-            src={`https://image.tmdb.org/t/p/w1280${modalStore.show?.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/original${modalStore.show?.backdrop_path}`}
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
           />
           {trailer && (
             <Youtube

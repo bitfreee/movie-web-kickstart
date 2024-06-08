@@ -3,7 +3,7 @@ import { env } from '@/env.mjs';
 import MovieService from '@/services/MovieService';
 import type { CategorizedShows, KeyWord, KeyWordResponse, Show } from '@/types';
 import { type AxiosResponse } from 'axios';
-import { type ClassValue, clsx } from 'clsx';
+import { clsx, type ClassValue } from 'clsx';
 import { cache } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -152,7 +152,7 @@ export const handleMetadata = cache(
         type: 'website',
         locale: 'en_US',
         url: `${siteConfig.url}/${page}/${slug}`,
-        images: `https://image.tmdb.org/t/p/w1280${
+        images: `https://image.tmdb.org/t/p/original${
           data?.backdrop_path ?? data?.poster_path ?? ''
         }`,
         title: getNameFromShow(data),
@@ -163,7 +163,7 @@ export const handleMetadata = cache(
         card: 'summary_large_image',
         title: getNameFromShow(data),
         description: data?.overview ?? '',
-        images: `https://image.tmdb.org/t/p/w1280${
+        images: `https://image.tmdb.org/t/p/original${
           data?.backdrop_path ?? data?.poster_path ?? ''
         }`,
         creator: siteConfig.author,

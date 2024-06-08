@@ -1,10 +1,9 @@
 import { motion } from 'framer-motion';
 
-import { itemFade, itemsReveal } from '@/lib/constants';
 import { Skeleton } from '@/components/ui/skeleton';
+import { itemFade, itemsReveal } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { useSearchStore } from '@/stores/search';
-import Image from 'next/image';
 import CustomImage from './custom-image';
 
 interface ShowsSkeletonProps {
@@ -49,6 +48,7 @@ const ShowsSkeleton = ({
                   <CustomImage
                     alt={'poster'}
                     src={'/images/grey-thumbnail.jpg'}
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
                     className="h-full w-full cursor-pointer rounded-lg px-1 transition-all md:hover:scale-110"
                     style={{ objectFit: 'cover' }}
                   />

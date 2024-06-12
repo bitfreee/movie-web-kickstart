@@ -48,6 +48,7 @@ const ShowsSkeleton = ({
                   <CustomImage
                     alt={'poster'}
                     src={'/images/grey-thumbnail.jpg'}
+                    fill={true}
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
                     className="h-full w-full cursor-pointer rounded-lg px-1 transition-all md:hover:scale-110"
                     style={{ objectFit: 'cover' }}

@@ -40,7 +40,6 @@ export async function searchMovies(query: string, page: number) {
       query,
     )}&language=en-US&page=${page}`,
   );
-  console.log(data.results[0]?.media_type);
   data.results.sort((a, b) => {
     return b.popularity - a.popularity;
   });
